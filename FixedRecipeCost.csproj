@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="MelonLoader">
+      <HintPath>.\Libs\MelonLoader.dll</HintPath>
+    </Reference>
+    <PackageReference Include="HarmonyX" Version="2.16.1" />
+  </ItemGroup>
+
+</Project>
