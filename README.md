@@ -1,6 +1,10 @@
 # FixedRecipeCost
 
-Mod MelonLoader pour **Dave the Diver** permettant de supprimer l'augmentation du coût des améliorations de recettes. C'est le premier mod MelonLoader pour Dave the Diver à ma connaissance !
+Mod MelonLoader pour **Dave the Diver**. C'est le premier mod MelonLoader pour Dave the Diver à ma connaissance !
+
+Il permet de :
+- supprimer l'augmentation du coût des améliorations de recettes
+- ajouter un bonus de 5 pièges à crabes et 5 drones de récupération
 
 Dans le style de ce mod : https://www.nexusmods.com/davethediver/mods/19
 
@@ -221,3 +225,12 @@ Il existe aussi une version web Il2CppDumper en ligne ici https://il2cppdumper.c
 Le fichier produit le plus intéressant est dump.cs
 
 Il contient les définitions des classes et méthodes à patcher.
+
+Pour l'ajout des pièges à crabes et des drones, je me suis basé sur :
+
+```text
+PlayerCharacter.AvailableCrabTrapCount
+PlayerCharacter.AvailableLiftDroneCount
+```
+
+Et je patche leur valeur juste après l'Init de PlayerCharacter.
