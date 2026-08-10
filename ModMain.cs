@@ -4,21 +4,21 @@ using HarmonyLib;
 using MelonLoader;
 
 [assembly: MelonInfo(
-    typeof(FixedRecipeCost.ModMain),
+    typeof(LessGrindMoreDiveMelonLoader.ModMain),
     "Fixed Recipe Cost",
     "1.1.0",
     "Neokeld")]
 
 [assembly: MelonGame(null, "DAVE THE DIVER")]
 
-namespace FixedRecipeCost
+namespace LessGrindMoreDiveMelonLoader
 {
     public class ModMain : MelonMod
     {
         public override void OnInitializeMelon()
         {
             MelonLogger.Msg(
-                "Fixed Recipe Cost loaded");
+                "Less Grind More Dive Melon Loader loaded");
         }
     }
 

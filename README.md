@@ -1,4 +1,4 @@
-# FixedRecipeCost
+# Less Grind More Dive Melon Loader
 
 Mod MelonLoader pour **Dave the Diver**. C'est le premier mod MelonLoader pour Dave the Diver à ma connaissance !
 
@@ -74,7 +74,7 @@ Dave The Diver/
 Copiez :
 
 ```text
-FixedRecipeCost.dll
+LessGrindMoreDiveMelonLoader.dll
 ```
 
 dans :
@@ -102,7 +102,7 @@ Vous devriez voir :
 Supprimez simplement :
 
 ```text
-Dave The Diver/Mods/FixedRecipeCost.dll
+Dave The Diver/Mods/LessGrindMoreDiveMelonLoader.dll
 ```
 
 # Pour les développeurs
@@ -119,8 +119,8 @@ Tout ce qui suit a été fait sous Windows.
 
 ```bash
 $env:DOTNET_CLI_TELEMETRY_OPTOUT=1
-dotnet new classlib -n FixedRecipeCost
-cd FixedRecipeCost
+dotnet new classlib -n LessGrindMoreDiveMelonLoader
+cd LessGrindMoreDiveMelonLoader
 ```
 
 ### Fichier `.csproj`
@@ -169,7 +169,7 @@ Des DLL seront générés dans :
 bin/Release/net472/
 ```
 
-Il n'y a que FixedRecipeCost.dll qui nous intéresse.
+Il n'y a que LessGrindMoreDiveMelonLoader.dll qui nous intéresse.
 
 ## Architecture du mod
 
