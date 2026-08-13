@@ -97,6 +97,10 @@ Vous devriez voir :
 [Fixed Recipe Cost] Fixed Recipe Cost loaded
 ```
 
+Vous trouverez aussi un fichier de configuration dans UserData/MelonPreferences.cfg
+
+Vous pouvez changer le nombre de drones de récupération et de pièges en crabes en bonus et activer ou désactiver la fixation des prix des recettes.
+
 ### Désinstallation
 
 Supprimez simplement :
