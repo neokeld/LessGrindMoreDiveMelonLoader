@@ -5,8 +5,8 @@ using MelonLoader;
 
 [assembly: MelonInfo(
     typeof(LessGrindMoreDiveMelonLoader.ModMain),
-    "Fixed Recipe Cost",
-    "1.1.0",
+    "Less Grind More Dive Melon Loader",
+    "1.2.0",
     "Neokeld")]
 
 [assembly: MelonGame(null, "DAVE THE DIVER")]
@@ -20,6 +20,7 @@ namespace LessGrindMoreDiveMelonLoader
         public static MelonPreferences_Entry<int> ExtraLiftDrones;
         public static MelonPreferences_Entry<int> ExtraCrabTraps;
         public static MelonPreferences_Entry<bool> FixedRecipeCost;
+        public static MelonPreferences_Entry<float> MermanVillageSpeedBoost;
 
         public override void OnInitializeMelon()
         {
@@ -39,6 +40,11 @@ namespace LessGrindMoreDiveMelonLoader
                 "FixedRecipeCost",
                 true,
                 "Use original recipe ingredient count");
+
+            MermanVillageSpeedBoost = ConfigCategory.CreateEntry(
+                "MermanVillageSpeed",
+                5f,
+                "Speed boost in the Merman Village");
 
             MelonPreferences.Save();
 
@@ -69,6 +75,66 @@ namespace LessGrindMoreDiveMelonLoader
             
             __result = originCount;
             return false;
+        }
+    }
+
+    public static class SpeedManager
+    {
+        private static bool _bonusEnabled = false;
+
+        public static bool isBonusEnabled()
+        {
+            return _bonusEnabled;
+        }
+
+        public static void EnterMermanVillage()
+        {
+            if(ModMain.MermanVillageSpeedBoost.Value > 0f) {
+                _bonusEnabled = true;
+                
+                MelonLogger.Msg($"Enter Merman Village, speed boost {ModMain.MermanVillageSpeedBoost.Value}");
+            }
+        }
+
+        public static void LeaveMermanVillage()
+        {
+            if(ModMain.MermanVillageSpeedBoost.Value > 0f) {
+                _bonusEnabled = false;
+                
+                MelonLogger.Msg("Leave Merman Village");
+            }
+        }
+    }
+
+    [HarmonyPatch]
+    internal static class MermanVillageEnterPatch
+    {
+        static MethodBase TargetMethod()
+        {
+            return AccessTools.Method(
+                AccessTools.TypeByName("MermanVillageSceneManager"),
+                "Start");
+        }
+
+        static void Prefix()
+        {
+            SpeedManager.EnterMermanVillage();
+        }
+    }
+
+    [HarmonyPatch]
+    internal static class MermanVillageExitPatch
+    {
+        static MethodBase TargetMethod()
+        {
+            return AccessTools.Method(
+                AccessTools.TypeByName("MermanVillageSceneManager"),
+                "OnDestroy");
+        }
+
+        static void Prefix()
+        {
+            SpeedManager.LeaveMermanVillage();
         }
     }
 
@@ -106,6 +172,24 @@ namespace LessGrindMoreDiveMelonLoader
 
             MelonLogger.Msg(
                 $"Added +{ModMain.ExtraLiftDrones.Value} LiftDrones and +{ModMain.ExtraCrabTraps.Value} CrabTraps");
+        }
+    }
+    
+    [HarmonyPatch]
+    internal static class PlayerCharacterDetermineMoveSpeedPatch
+    {
+        private static MethodBase TargetMethod()
+        {
+            return AccessTools.Method(
+                AccessTools.TypeByName("PlayerCharacter"),
+                "DetermineMoveSpeed");
+        }
+
+        static void Postfix(
+            ref float __result)
+        {
+            if (SpeedManager.isBonusEnabled())
+                __result = __result * ModMain.MermanVillageSpeedBoost.Value;
         }
     }
 }

@@ -5,8 +5,7 @@ Mod MelonLoader pour **Dave the Diver**. C'est le premier mod MelonLoader pour D
 Il permet de :
 - supprimer l'augmentation du coût des améliorations de recettes
 - ajouter un bonus de 5 pièges à crabes et 5 drones de récupération
-
-Dans le style de ce mod : https://www.nexusmods.com/davethediver/mods/19
+- aller 5 fois plus vite dans le village du peuple marin
 
 ## Fonctionnement
 
@@ -99,7 +98,10 @@ Vous devriez voir :
 
 Vous trouverez aussi un fichier de configuration dans UserData/MelonPreferences.cfg
 
-Vous pouvez changer le nombre de drones de récupération et de pièges en crabes en bonus et activer ou désactiver la fixation des prix des recettes.
+Vous pouvez changer :
+- le nombre de drones de récupération et de pièges en crabes en bonus
+- activer ou désactiver la fixation des prix des recettes
+- modifier le bonus de déplacement dans le village du peuple marin (mettre 1.0 pour désactiver)
 
 ### Désinstallation
 
@@ -238,3 +240,13 @@ PlayerCharacter.AvailableLiftDroneCount
 ```
 
 Et je patche leur valeur juste après l'Init de PlayerCharacter.
+
+Pour modifier la vitesse de Dave, j'ai patché :
+
+```text
+PlayerCharacter.DetermineMoveSpeed
+```
+
+Pour arriver à faire le lien avec sa position dans le village du peuple marin, j'ai ajouté une classe statique SpeedManager :
+- qui porte le statut d'activation du bonus que je met à jour quand on rentre et sort du village
+- qu'on utilise dans un Postfix sur DetermineMoveSpeed pour savoir si on applique le bonus ou non
